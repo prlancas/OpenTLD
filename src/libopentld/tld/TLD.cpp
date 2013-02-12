@@ -373,6 +373,12 @@ typedef struct
 
 void TLD::writeToFile(const char *path)
 {
+    if (!detectorCascade->initialised)
+    {
+        printf("Error: No model to save.\n");
+        return;
+    }
+
     NNClassifier *nn = detectorCascade->nnClassifier;
     EnsembleClassifier *ec = detectorCascade->ensembleClassifier;
 
@@ -464,18 +470,25 @@ void TLD::writeToFile(const char *path)
 
 void TLD::readFromFile(const char *path)
 {
-    release();
-
-    NNClassifier *nn = detectorCascade->nnClassifier;
-    EnsembleClassifier *ec = detectorCascade->ensembleClassifier;
+    if(path == NULL)
+    {
+        printf("Error: No path specified \n", path);
+        return;
+    }
 
     FILE *file = fopen(path, "r");
 
     if(file == NULL)
     {
         printf("Error: Model not found: %s\n", path);
-        exit(1);
+        return;
     }
+
+    release();
+
+    NNClassifier *nn = detectorCascade->nnClassifier;
+    EnsembleClassifier *ec = detectorCascade->ensembleClassifier;
+
 
     int MAX_LEN = 255;
     char str_buf[255];

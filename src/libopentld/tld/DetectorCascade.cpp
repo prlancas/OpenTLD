@@ -55,6 +55,8 @@ DetectorCascade::DetectorCascade()
     numTrees = 13;
     numFeatures = 10;
 
+    numWindows = 0;
+
     initialised = false;
 
     foregroundDetector = new ForegroundDetector();
