@@ -77,6 +77,7 @@ DetectorCascade::~DetectorCascade()
     delete ensembleClassifier;
     delete nnClassifier;
     delete detectionResult;
+    delete clustering;
 }
 
 void DetectorCascade::init()
